@@ -3,11 +3,13 @@ class Snake {
     this.reset();
     this.image = new Image();
     this.image.src = 's.png'
+    this.blockMove = false;
   }
  
   update() {
     this.draw();
     this.next();
+    this.blockMove = false;
   }
 
   reset() {
@@ -73,26 +75,31 @@ class Snake {
   }
 
   move(direction) {
+    if (this.blockMove) return;
     switch (direction) {
       case 'Up':
         if (this.ySpeed !== 0) break;
         this.xSpeed = 0;
         this.ySpeed = -SCALE;
+        this.blockMove = true;
         break;
       case 'Down':
         if (this.ySpeed !== 0) break;
         this.xSpeed = 0;
         this.ySpeed = SCALE;
+        this.blockMove = true;
         break;
       case 'Left':
         if (this.xSpeed !== 0) break;
         this.xSpeed = -SCALE;
         this.ySpeed = 0;
+        this.blockMove = true;
         break;
       case 'Right':
         if (this.xSpeed !== 0) break;
         this.xSpeed = SCALE;
         this.ySpeed = 0;
+        this.blockMove = true;
         break;
     }
   }
